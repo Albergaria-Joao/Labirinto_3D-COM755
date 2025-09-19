@@ -21,7 +21,7 @@ def preencher():
         for j in range(N):
             for k in range(N):
                 prob = random.randint(1, 10)
-                if prob <= 4:
+                if prob <= 3:
                     labirinto[i][j][k] = P
                 else:
                     score = random.randint(min_val, max_val)
@@ -35,31 +35,31 @@ preencher()
 
 
 sPos = False
-
+# Coloca uma saída
 while sPos == False:
-    xS = random.randint(1, N-2)
-    yS = random.randint(1, N-2)
-    zS = random.randint(1, N-2)
+    xS = random.randint(0, N-1)
+    yS = random.randint(0, N-1)
+    zS = random.randint(0, N-1)
 
-    if (labirinto[xS - 1 % N][yS][zS] < P and labirinto[xS + 1 % N][yS][zS] < P and
-        labirinto[xS][yS - 1 % N][zS] < P and labirinto[xS][yS + 1 % N][zS] < P and 
-        labirinto[xS][yS][zS - 1 % N] < P and labirinto[xS][yS][zS + 1 % N] < P):
+    if (labirinto[(xS - 1) % N][yS][zS] < P and labirinto[(xS + 1) % N][yS][zS] < P and
+        labirinto[xS][(yS - 1) % N][zS] < P and labirinto[xS][(yS + 1) % N][zS] < P and 
+        labirinto[xS][yS][(zS - 1) % N] < P and labirinto[xS][yS][(zS + 1) % N] < P):
         
         labirinto[xS][yS][zS] = S
         sPos = True    
                 
-
+# Coloca de 1 a 2 teleportes
 nT = random.randint(1, 2)
 for i in range (nT):
     tPos = False
     while tPos == False:
-        xT = random.randint(1, N-2)
-        yT = random.randint(1, N-2)
-        zT = random.randint(1, N-2)
+        xT = random.randint(0, N-1)
+        yT = random.randint(0, N-1)
+        zT = random.randint(0, N-1)
 
-        if (labirinto[xT - 1][yT][zT] < P and labirinto[xT + 1 % N][yT][zT] < P and
-            labirinto[xT][yT - 1][zT] < P and labirinto[xT][yT + 1 % N][zT] < P and 
-            labirinto[xT][yT][zT - 1] < P and labirinto[xT][yT][zT + 1 % N] < P and
+        if (labirinto[(xT - 1) % N][yT][zT] < P and labirinto[(xT + 1) % N][yT][zT] < P and
+            labirinto[xT][(yT - 1) % N][zT] < P and labirinto[xT][(yT + 1) % N][zT] < P and 
+            labirinto[xT][yT][(zT - 1) % N] < P and labirinto[xT][yT][(zT + 1) % N] < P and
             labirinto[xT][yT][zT] != S):
             
             labirinto[xT][yT][zT] = T
@@ -119,7 +119,7 @@ def update(val):
 slider.on_changed(update)
 
 #
-
+# Salvar a matriz para usar no outro código
 salvar = input("Salvar? <S/n>   ")
 if salvar != "n" and salvar != "N":
     np.save("labirinto.npy", labirinto)
