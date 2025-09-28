@@ -10,14 +10,16 @@ P = 100
 T = 150
 S = 200
 
+# ALGORITMO DE DIJKSTRA - LEVA EM CONSIDERAÇÃO OS CUSTOS
+
 # Carregar o labirinto salvo
 labirinto = np.load("labirinto100.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)
-direcoes = [(1, 0, 0), (-1, 0, 0), 
-            (0, 1, 0), (0, -1, 0), 
-            (0, 0, 1), (0, 0, -1)]
+direcoes = [(1, 0, 0), (-1, 0, 0), # esquerda-direita
+            (0, 1, 0), (0, -1, 0), # frente-trás
+            (0, 0, 1), (0, 0, -1)] # cima-baixo
 
 # Encontrar a posição da saída e teleportes
 saida = None
@@ -37,7 +39,7 @@ if saida is None:
     exit()
 
 
-# Ponto de início (você pode mudar para outro)
+# Ponto de início (colocamos fixado no 0 para testes)
 inicio = (0,0,0)
 # inicio = (random.randint(0, N-1), random.randint(0, N-1), random.randint(0, N-1))
 # while labirinto[inicio] == P or labirinto[inicio] == S:
@@ -67,7 +69,7 @@ while heap:
             val = labirinto[nx][ny][nz]
             if val == P:
                 continue
-            novo_custo = custo + abs(val) if val < T else custo  # Teleporte/S/P não contam aqui
+            novo_custo = custo + abs(val) if val < T else custo  # No Dijkstra, as arestas devem ter peso não negativo
             if novo_custo < dist[nx][ny][nz]:
                 dist[nx][ny][nz] = novo_custo
                 prev[(nx, ny, nz)] = (x, y, z)

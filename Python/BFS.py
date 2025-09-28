@@ -10,14 +10,16 @@ P = 100
 T = 150
 S = 200
 
+# ALGORITMO DE BUSCA EM LARGURA
+
 # Carregar o labirinto salvo
 labirinto = np.load("labirinto100.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)
-direcoes = [(1, 0, 0), (-1, 0, 0),
-            (0, 1, 0), (0, -1, 0),
-            (0, 0, 1), (0, 0, -1)]
+direcoes = [(1, 0, 0), (-1, 0, 0), # esquerda-direita
+            (0, 1, 0), (0, -1, 0), # frente-trás
+            (0, 0, 1), (0, 0, -1)] # cima-baixo
 
 # Encontrar saída e teleportes
 saida = None
@@ -35,8 +37,7 @@ if saida is None:
     print("Erro: Saída (S) não encontrada.")
     exit()
 
-# Ponto de início (aleatório válido)
-
+# Ponto de início (colocamos fixado no 0 para testes)
 inicio = (0,0,0)
 # inicio = (random.randint(0, N-1), random.randint(0, N-1), random.randint(0, N-1))
 # while labirinto[inicio] == P:
@@ -47,28 +48,32 @@ print(f"Saída: {saida}")
 
 # BFS
 fila = deque([inicio])
+# Deque = double-ended queue ==> pode remover elementos dos dois lados com complexidade de O(1)
 visitado = set([inicio])
+# Set - conjunto que não guarda valores repetidos e tem tempo de busca muito rápido
+# Cria ambos já com o ponto de início dentro
+
 prev = {}
 
 encontrou = False
 
-start_time = time.time()
+start_time = time.time() # Inicia o timer
 while fila:
-    atual = fila.popleft()
+    atual = fila.popleft() # Pega o primeiro valor da fila como atual
     if atual == saida:
-        encontrou = True
+        encontrou = True # Para o ciclo se encontrar a saída
         break
 
     x, y, z = atual
 
     # Movimentos normais
-    for dx, dy, dz in direcoes:
+    for dx, dy, dz in direcoes: # Faz isso para cada uma das direções possíveis. Ou seja, vai abrindo para cada um dos movimentos possíveis até encontrar a rota mais curta (que chega primeiro)
         nx, ny, nz = x + dx, y + dy, z + dz
-        if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N:
-            if labirinto[nx][ny][nz] != P and (nx, ny, nz) not in visitado:
-                visitado.add((nx, ny, nz))
-                prev[(nx, ny, nz)] = atual
-                fila.append((nx, ny, nz))
+        if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N: # Se não for cair fora do labirinto
+            if labirinto[nx][ny][nz] != P and (nx, ny, nz) not in visitado: # Se não for parede nem já tiver passado lá
+                visitado.add((nx, ny, nz)) # Adiciona aos visitados
+                prev[(nx, ny, nz)] = atual # Coloca o valor "atual" como o anterior deste que iremos agora (para reconstruir o caminho depois no gráfico)
+                fila.append((nx, ny, nz)) # Adiciona o valor novo à fila de casas a serem visitadas
 
     # Teleporte → volta ao início
     if labirinto[x][y][z] == T:
@@ -82,8 +87,10 @@ elapsed_time = end_time - start_time
 if encontrou:
     caminho = []
     atual = saida
+    soma_custo = 0
     while atual != inicio:
         caminho.append(atual)
+        soma_custo += labirinto[atual]
         atual = prev[atual]
     caminho.append(inicio)
     caminho.reverse()
