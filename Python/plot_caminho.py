@@ -12,13 +12,10 @@ def plotar(alg, prev, inicio, saida, time):
     labirinto = np.load("labirinto100.npy")
     N = labirinto.shape[0]
 
-    # Aqui entra seu código de Dijkstra (não repito pra não poluir)
-
-    # ---- Plotando ----
     fig = plt.figure(figsize=(10, 8))
     ax = fig.add_subplot(111, projection='3d')
 
-    # Plotar paredes
+    # Plotar paredes (tirei porque ele travava MUITO no de 100)
     #px, py, pz = np.where(labirinto == P)
     #ax.scatter(px, py, pz, c="black", marker="s", s=2, alpha=0.2, label="Parede")
 
