@@ -47,33 +47,35 @@ inicio = (0,0,0)
 #     inicio = (random.randint(0, N-1), random.randint(0, N-1), random.randint(0, N-1))
 
 # Dijkstra
-dist = np.full((N, N, N), np.inf)
-dist[inicio] = 0
+dist = np.full((N, N, N), np.inf) # Cria uma matriz 3D do tamanho do labirinto, em que a "distância" até cada elemento é infinito 
+dist[inicio] = 0 # A distância do atual até o ponto de início é 0 porque ele já está lá
 
-prev = {}  # Para reconstruir caminho
+prev = {}  # Hashmap para reconstruir caminho (contém o anterior de cada célula no caminho)
 
 heap = [(0, inicio)]
+# Heap ==> Fila de prioridade em que se tira sempre o menor elemento
+# Cada item é uma tupla custo, posição
 
 start_time = time.time()
 while heap:
-    custo, atual = heapq.heappop(heap)
+    custo, atual = heapq.heappop(heap) # Retorna o elemento do heap com menor custo para pegarmos como atual
+    # Assim, eu expando os caminhos "mais baratos" primeiro
     if atual == saida:
-        break
+        break # Se encontrar a saída, ele para
 
-    x, y, z = atual
+    x, y, z = atual 
 
-    # Movimentos normais
-    for dx, dy, dz in direcoes:
+    for dx, dy, dz in direcoes: # Para cada direção:
         nx, ny, nz = x + dx, y + dy, z + dz
-        if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N:
-            val = labirinto[nx][ny][nz]
-            if val == P:
-                continue
+        if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N: # Verifica se não vai cair fora do labirinto
+            val = labirinto[nx][ny][nz] # Valor do elemento
+            if val == P: 
+                continue # Ignora parede
             novo_custo = custo + abs(val) if val < T else custo  # No Dijkstra, as arestas devem ter peso não negativo
-            if novo_custo < dist[nx][ny][nz]:
-                dist[nx][ny][nz] = novo_custo
-                prev[(nx, ny, nz)] = (x, y, z)
-                heapq.heappush(heap, (novo_custo, (nx, ny, nz)))
+            if novo_custo < dist[nx][ny][nz]: # Se tivermos achado um caminho mais barato para essa célula em específico
+                dist[nx][ny][nz] = novo_custo # Atribui o custo à célula
+                prev[(nx, ny, nz)] = (x, y, z) # Guarda o anterior à nova célula que andamos
+                heapq.heappush(heap, (novo_custo, (nx, ny, nz))) # Adiciona essa nova célula com seu custo ao heap
 
     # Teleporte
     # Se atual é um teleporte, envia para o início
@@ -91,7 +93,7 @@ if dist[saida] == np.inf:
 else:
     print(f"Custo mínimo até a saída: {dist[saida]}")
 
-    # Reconstruir caminho
+    # Reconstruir o caminho para plotar, com base no hashmap de anteriores
     caminho = []
     atual = saida
     while atual != inicio:
