@@ -142,16 +142,15 @@ if salvar != "n" and salvar != "N":
 
 
 
-# PLOTTING
+# PLOTAGEM
 
-# Assuming labirinto is already filled
 N = labirinto.shape[0]
 
 # Normalization for blue values
 norm = colors.Normalize(vmin=-5, vmax=5)
 cmap = plt.cm.Blues
 
-# Function to build the voxel plot for a given slice depth
+# Plotagem da matriz (com ajuda de IA)
 def build_plot(ax, max_k):
     ax.clear()
     facecolors = np.empty(labirinto.shape, dtype=object)
@@ -180,12 +179,10 @@ def build_plot(ax, max_k):
     ax.set_title(f"Showing layers up to Z={max_k}")
 
 def plot():
-    # --- Setup figure ---
     fig = plt.figure(figsize=(8, 8))
     ax = fig.add_subplot(111, projection="3d")
     plt.subplots_adjust(bottom=0.25)
 
-    # Initial plot
     build_plot(ax, 0)
 
     # Slider
@@ -198,12 +195,6 @@ def plot():
 
     slider.on_changed(update)
 
-    #
-    # Salvar a matriz para usar no outro código
-    
-
-    # p/ carregar depois
-    # labirinto_loaded = np.load("labirinto.npy")
-
     plt.show()
 
+#plot()
