@@ -101,5 +101,5 @@ else:
     print("Não há caminho até a saída.")
 
 #dist = np.full((N, N, N), np.inf)
-plotar("BFS", prev, inicio, saida, elapsed_time)
+plotar("BFS", labirinto, prev, inicio, saida, elapsed_time, [])
 

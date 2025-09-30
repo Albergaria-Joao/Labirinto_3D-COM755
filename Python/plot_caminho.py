@@ -7,9 +7,9 @@ P = 100
 T = 150
 S = 200
 
-def plotar(alg, prev, inicio, saida, time):
+def plotar(alg, labirinto, prev, inicio, saida, time, caminho):
     # Carregar labirinto
-    labirinto = np.load("labirinto100.npy")
+    
     N = labirinto.shape[0]
 
     fig = plt.figure(figsize=(10, 8))
@@ -29,14 +29,14 @@ def plotar(alg, prev, inicio, saida, time):
 
     # Plotar caminho encontrado
     
-    caminho = []
-    atual = saida
-    while atual != inicio:
-        caminho.append(atual)
-        
-        atual = prev[atual]
-    caminho.append(inicio)
-    caminho.reverse()
+    if caminho == []:
+        atual = saida
+        while atual != inicio:
+            caminho.append(atual)
+            
+            atual = prev[atual]
+        caminho.append(inicio)
+        caminho.reverse()
 
     cx, cy, cz = zip(*caminho)
     ax.plot(cx, cy, cz, c="red", linewidth=3, label="Caminho")

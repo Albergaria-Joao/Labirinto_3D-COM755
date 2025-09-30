@@ -107,5 +107,5 @@ else:
         print(passo)
 
 
-plotar("Dijkstra", prev, inicio, saida, elapsed_time)
+plotar("Dijkstra", labirinto, prev, inicio, saida, elapsed_time, [])
 
