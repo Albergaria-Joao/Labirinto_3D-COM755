@@ -1,6 +1,4 @@
 import numpy as np
-import heapq
-import random
 from collections import deque
 from plot_caminho import plotar
 import time
