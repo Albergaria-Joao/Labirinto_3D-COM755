@@ -8,7 +8,8 @@ P = 100
 T = 150
 S = 200
 
-# ALGORITMO DE BUSCA EM LARGURA
+# ALGORITMO AUTORAL 1 
+# No labirinto de 10, teve um tempo de execução melhor que os outros. Mas no de 100, foi muito pior por causa da quantidade de backtracking
 
 # Carregar o labirinto salvo
 labirinto = np.load("labirinto100.npy")
@@ -67,11 +68,11 @@ while encontrou_saida == False:
                 
                 visitados.append((nx, ny, nz))
                 caminho_atual.append((nx, ny, nz))
-                break 
+                break # Vai sempre no primeiro caminho aberto que encontrar
             else: 
-                fechado = True
+                fechado = True 
     if (fechado == True):
-        caminho_atual.pop()
+        caminho_atual.pop() # Se ficar sem saída, ele volta 1 (backtracking) até achar um novo caminho aberto
 
     print(caminho_atual[-1])
     #print(caminho_atual)
