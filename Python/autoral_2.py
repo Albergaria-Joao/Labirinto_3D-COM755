@@ -2,14 +2,14 @@ import numpy as np
 from collections import deque
 from plot_caminho import plotar
 import time
-import random
+import heapq
 
 P = 100
 T = 150
 S = 200
 
-# ALGORITMO AUTORAL 2
-#AINDA EM TESTE
+# ALGORITMO AUTORAL 1 
+# No labirinto de 10, teve um tempo de execução melhor que os outros. Mas no de 100, foi muito pior por causa da quantidade de backtracking
 
 # Carregar o labirinto salvo
 labirinto = np.load("labirinto100.npy")
@@ -42,6 +42,9 @@ inicio = (0,0,0)
 # while labirinto[inicio] == P:
 #     inicio = (random.randint(0, N-1), random.randint(0, N-1), random.randint(0, N-1))
 
+def distancia(a, b):
+    return abs(a[0]-b[0]) + abs(a[1]-b[1]) + abs(a[2]-b[2])
+
 print(f"Início: {inicio}")
 print(f"Saída: {saida}")
 
@@ -58,6 +61,8 @@ while encontrou_saida == False:
     if (x, y, z) == saida:
         encontrou_saida = True
         break
+
+    possibs = []
     for dx, dy, dz in direcoes:
     #print(proximo[0])
      # Faz isso para cada uma das direções possíveis. Ou seja, vai abrindo para cada um dos movimentos possíveis até encontrar a rota mais curta (que chega primeiro)
@@ -65,14 +70,17 @@ while encontrou_saida == False:
         if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N:
             if labirinto[nx][ny][nz] != P and (nx, ny, nz) not in visitados: # Se não for parede nem já tiver passado lá
                 fechado = False
-                
-                visitados.append((nx, ny, nz))
-                caminho_atual.append((nx, ny, nz))
-                break # Vai sempre no primeiro caminho aberto que encontrar
-            else: 
-                fechado = True 
-    if (fechado == True):
+                possibs.append((distancia((nx, ny, nz), saida), (nx, ny, nz)))
+            
+    
+        # Vai sempre no primeiro caminho aberto que encontrar
+
+    if len(possibs) == 0: 
         caminho_atual.pop() # Se ficar sem saída, ele volta 1 (backtracking) até achar um novo caminho aberto
+    else:
+        dist, proximo = heapq.heappop(possibs)
+        visitados.append(proximo)
+        caminho_atual.append(proximo)
 
     print(caminho_atual[-1])
     #print(caminho_atual)
