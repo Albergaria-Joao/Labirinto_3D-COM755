@@ -9,7 +9,7 @@ T = 150
 S = 200
 
 
-labirinto = np.load("labirinto100.npy")
+labirinto = np.load("labirinto100_2.npy")
 N = labirinto.shape[0]
 
 
@@ -40,30 +40,41 @@ dist[inicio] = 0
 prev = {}
 
 
+# Acaba demorando bastante justamente pela ordem de complexidade
+
+# Aqui, ele vai transformar o labirinto num grafo ==> cada célula é um nó, e ele vai criar arestas entre elas
 arestas = []
 for x in range(N):
     for y in range(N):
         for z in range(N):
+            # Percorre o labirinto inteiro
             if labirinto[x][y][z] == P:
-                continue
+                continue # Se a célula atual for parede, continua
             for dx, dy, dz in direcoes:
-                nx, ny, nz = x + dx, y + dy, z + dz
+                nx, ny, nz = x + dx, y + dy, z + dz # Olha as direções possíveis da célula
                 if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N:
                     if labirinto[nx][ny][nz] != P:
                         peso = abs(labirinto[nx][ny][nz]) if labirinto[nx][ny][nz] < T else 0
-                        arestas.append(((x, y, z), (nx, ny, nz), peso))
+                        arestas.append(((x, y, z), (nx, ny, nz), peso)) # Cria uma aresta com peso equivalente ao módulo do valor da célula
             
             if labirinto[x][y][z] == T:
-                arestas.append(((x, y, z), inicio, 1))
+                arestas.append(((x, y, z), inicio, 1)) # Se for teletransporte, cria aresta com o início
 
 
 start_time = time.time()
-for _ in range(N**3 - 1):
+for _ in range(N**3 - 1): # Repete o número de nós - 1
     atualizado = False
-    for u, v, peso in arestas:
-        if dist[u] + peso < dist[v]:
+    # Para cada aresta
+    for u, v, peso in arestas: # u: de onde ele sai; v: aonde ele chega
+        # dist[u] = distância mínima conhecida até o nó u
+        # peso = custo da aresta de u até v
+        # dist[v] = distância mínima conhecida até o nó v
+
+        if dist[u] + peso < dist[v]: 
+            # Se passando por u até chegar em v (dist u + peso) for melhor do que já tínhamos em dist v, encontramos um caminho mais curto
             dist[v] = dist[u] + peso
-            prev[v] = u
+            prev[v] = u # Guarda quem foi o "pai" de cada nó/anterior para guardar o caminho percorrido
+            # Marca que teve essa atualização no caminho
             atualizado = True
     if not atualizado:
         break

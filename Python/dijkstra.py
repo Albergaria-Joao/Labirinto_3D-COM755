@@ -13,7 +13,7 @@ S = 200
 # ALGORITMO DE DIJKSTRA - LEVA EM CONSIDERAÇÃO OS CUSTOS
 
 # Carregar o labirinto salvo
-labirinto = np.load("labirinto100.npy")
+labirinto = np.load("labirinto100_2.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)
