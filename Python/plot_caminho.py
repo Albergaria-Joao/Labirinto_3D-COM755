@@ -16,8 +16,8 @@ def plotar(alg, labirinto, prev, inicio, saida, time, caminho):
     ax = fig.add_subplot(111, projection='3d')
 
     # Plotar paredes (tirei porque ele travava MUITO no de 100)
-    #px, py, pz = np.where(labirinto == P)
-    #ax.scatter(px, py, pz, c="black", marker="s", s=2, alpha=0.2, label="Parede")
+    # px, py, pz = np.where(labirinto == P)
+    # ax.scatter(px, py, pz, c="black", marker="s", s=2, alpha=0.2, label="Parede")
 
     # Plotar teleportes
     tx, ty, tz = np.where(labirinto == T)

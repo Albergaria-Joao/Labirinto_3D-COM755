@@ -9,7 +9,7 @@ from collections import deque
 P = 100
 T = 150
 S = 200
-N = 100
+N = 10
 
 # 3D array
 labirinto = np.zeros((N, N, N), dtype=int)
@@ -140,7 +140,7 @@ while encontrou == False:
 
 salvar = input("Salvar? <S/n>   ")
 if salvar != "n" and salvar != "N":
-    np.save("labirinto100_2.npy", labirinto)
+    np.save("labirinto10_2.npy", labirinto)
 
 
 

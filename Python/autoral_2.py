@@ -8,7 +8,7 @@ P = 100
 T = 150
 S = 200
 
-# ALGORITMO AUTORAL 1
+# ALGORITMO AUTORAL 2
 #AINDA EM TESTE
 
 # Carregar o labirinto salvo
@@ -58,9 +58,12 @@ while encontrou_saida == False:
     if (x, y, z) == saida:
         encontrou_saida = True
         break
-    for dx, dy, dz in direcoes:
+
+    rd = direcoes
+    random.shuffle(rd) # Agora, embaralha a lista de direções para garantir que cada caminho encontrado será diferente
+    for dx, dy, dz in rd: 
     #print(proximo[0])
-     # Faz isso para cada uma das direções possíveis. 
+     # Faz isso para cada uma das direções possíveis. Ou seja, vai abrindo para cada um dos movimentos possíveis até encontrar a rota mais curta (que chega primeiro)
         nx, ny, nz = x + dx, y + dy, z + dz
         if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N:
             if labirinto[nx][ny][nz] != P and (nx, ny, nz) not in visitados: # Se não for parede nem já tiver passado lá
