@@ -11,7 +11,7 @@ S = 200
 # ALGORITMO DE BUSCA EM LARGURA
 
 # Carregar o labirinto salvo
-labirinto = np.load("labirinto100.npy")
+labirinto = np.load("labirinto100_3.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)

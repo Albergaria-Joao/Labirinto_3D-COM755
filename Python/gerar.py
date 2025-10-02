@@ -9,9 +9,12 @@ from collections import deque
 P = 100
 T = 150
 S = 200
-N = 10
+N = 100
 
-# 3D array
+PERCENTUAL_PAREDES = 40
+NOME_ARQUIVO = "labirinto100_3.npy"
+
+
 labirinto = np.zeros((N, N, N), dtype=int)
 
 def preencher():
@@ -21,8 +24,8 @@ def preencher():
     for i in range(N):
         for j in range(N):
             for k in range(N):
-                prob = random.randint(1, 10)
-                if prob <= 6:
+                prob = random.randint(1, 100)
+                if prob <= PERCENTUAL_PAREDES:
                     labirinto[i][j][k] = P
                 else:
                     score = random.randint(min_val, max_val)
@@ -31,21 +34,21 @@ def preencher():
             # print()
         # print("\n\n")
 
-    # sPos = False
+    sPos = False
     # Coloca uma saída
-    # while sPos == False:
-    #     xS = random.randint(0, N-1)
-    #     yS = random.randint(0, N-1)
-    #     zS = random.randint(0, N-1)
+    while sPos == False:
+        xS = random.randint(0, N-1)
+        yS = random.randint(0, N-1)
+        zS = random.randint(0, N-1)
 
-    #     if (labirinto[(xS - 1) % N][yS][zS] < P and labirinto[(xS + 1) % N][yS][zS] < P and
-    #         labirinto[xS][(yS - 1) % N][zS] < P and labirinto[xS][(yS + 1) % N][zS] < P and 
-    #         labirinto[xS][yS][(zS - 1) % N] < P and labirinto[xS][yS][(zS + 1) % N] < P):
+        if (labirinto[(xS - 1) % N][yS][zS] < P and labirinto[(xS + 1) % N][yS][zS] < P and
+            labirinto[xS][(yS - 1) % N][zS] < P and labirinto[xS][(yS + 1) % N][zS] < P and 
+            labirinto[xS][yS][(zS - 1) % N] < P and labirinto[xS][yS][(zS + 1) % N] < P):
             
-    #         labirinto[xS][yS][zS] = S
-    #         sPos = True    
+            labirinto[xS][yS][zS] = S
+            sPos = True    
 
-    labirinto[N - 1][N - 1][N - 1] = S          
+    # labirinto[N - 1][N - 1][N - 1] = S          
     
     # Coloca de 1 a 2 teleportes
     nT = random.randint(5, 10)
@@ -140,7 +143,7 @@ while encontrou == False:
 
 salvar = input("Salvar? <S/n>   ")
 if salvar != "n" and salvar != "N":
-    np.save("labirinto10_2.npy", labirinto)
+    np.save(NOME_ARQUIVO, labirinto)
 
 
 
