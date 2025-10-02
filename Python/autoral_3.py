@@ -9,13 +9,13 @@ P = 100
 T = 150
 S = 200
 
-N_THREADS = 10
+N_THREADS = 100
 
 # ALGORITMO AUTORAL 3
 #AINDA EM TESTE
 
 # Carregar o labirinto salvo
-labirinto = np.load("labirinto10_2.npy")
+labirinto = np.load("labirinto100.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)
@@ -57,10 +57,13 @@ def caminhar():
     visitados = [inicio]
     caminho_atual = [inicio]
 
+    rd = direcoes
+    random.shuffle(rd) # Agora, embaralha a lista de direções para garantir que cada caminho encontrado será diferente
 
     
     while encontrou_saida == False:
-        if time.time() - start_thread_time > 300:
+        if time.time() - start_thread_time > 600:
+            print("THREAD FINALIZADA POR TEMPO")
             break
         
         x, y, z = caminho_atual[-1]
@@ -68,8 +71,8 @@ def caminhar():
             encontrou_saida = True
             break
 
-        rd = direcoes
-        random.shuffle(rd)
+        
+        
         for dx, dy, dz in rd:
         #print(proximo[0])
         # Faz isso para cada uma das direções possíveis. Ou seja, vai abrindo para cada um dos movimentos possíveis até encontrar a rota mais curta (que chega primeiro)

@@ -200,3 +200,12 @@ def plot():
     plt.show()
 
 #plot()
+
+
+
+
+
+# labirinto ==> N = 10, 60% de paredes; saída aleatória
+# labirinto10_2 ==> N = 100, 60% de paredes; saída no extremo superior
+# labirinto100 ==> N = 100, 60% de paredes; saída aleatória
+# labirinto100_2 ==> N = 100, 70% de paredes; saída no extremo superior
