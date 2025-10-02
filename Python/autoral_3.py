@@ -15,7 +15,7 @@ N_THREADS = 1000
 #AINDA EM TESTE
 
 # Carregar o labirinto salvo
-labirinto = np.load("labirinto10_2.npy")
+labirinto = np.load("labirinto100.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)
@@ -77,7 +77,7 @@ def caminhar():
         #print(proximo[0])
             nx, ny, nz = x + dx, y + dy, z + dz
             if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N:
-                if labirinto[nx][ny][nz] != P and (nx, ny, nz) not in visitados: # Se não for parede nem já tiver passado lá
+                if labirinto[nx][ny][nz] != P and labirinto[nx][ny][nz] != P and (nx, ny, nz) not in visitados: # Se não for parede nem já tiver passado lá
                     fechado = False
                     
                     visitados.append((nx, ny, nz))

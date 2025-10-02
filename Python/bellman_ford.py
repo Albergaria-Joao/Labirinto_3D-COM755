@@ -9,7 +9,7 @@ T = 150
 S = 200
 
 
-labirinto = np.load("labirinto100_2.npy")
+labirinto = np.load("labirinto100.npy")
 N = labirinto.shape[0]
 
 
@@ -39,7 +39,7 @@ dist = np.full((N, N, N), np.inf)
 dist[inicio] = 0
 prev = {}
 
-
+# Algoritmo de BELLMAN-FORD
 # Acaba demorando bastante justamente pela ordem de complexidade
 
 # Aqui, ele vai transformar o labirinto num grafo ==> cada célula é um nó, e ele vai criar arestas entre elas

@@ -13,7 +13,7 @@ S = 200
 # ALGORITMO DE DIJKSTRA - LEVA EM CONSIDERAÇÃO OS CUSTOS
 
 # Carregar o labirinto salvo
-labirinto = np.load("labirinto100_2.npy")
+labirinto = np.load("labirinto100.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)
@@ -50,7 +50,7 @@ inicio = (0,0,0)
 dist = np.full((N, N, N), np.inf) # Cria uma matriz 3D do tamanho do labirinto, em que a "distância" até cada elemento é infinito 
 dist[inicio] = 0 # A distância do atual até o ponto de início é 0 porque ele já está lá
 
-prev = {}  # Hashmap para reconstruir caminho (contém o anterior de cada célula no caminho)
+prev = {}  # Dicionário para reconstruir caminho (contém o anterior de cada célula no caminho)
 
 heap = [(0, inicio)]
 # Heap ==> Fila de prioridade em que se tira sempre o menor elemento
@@ -93,7 +93,7 @@ if dist[saida] == np.inf:
 else:
     print(f"Custo mínimo até a saída: {dist[saida]}")
 
-    # Reconstruir o caminho para plotar, com base no hashmap de anteriores
+    # Reconstruir o caminho para plotar, com base no dicionário de anteriores
     caminho = []
     atual = saida
     while atual != inicio:

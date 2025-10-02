@@ -9,10 +9,10 @@ from collections import deque
 P = 100
 T = 150
 S = 200
-N = 100
+N = 10
 
-PERCENTUAL_PAREDES = 40
-NOME_ARQUIVO = "labirinto100_3.npy"
+PERCENTUAL_PAREDES = 60
+NOME_ARQUIVO = "labirinto10_3.npy"
 
 
 labirinto = np.zeros((N, N, N), dtype=int)
@@ -50,8 +50,8 @@ def preencher():
 
     # labirinto[N - 1][N - 1][N - 1] = S          
     
-    # Coloca de 1 a 2 teleportes
-    nT = random.randint(5, 10)
+    # Coloca de N a M teleportes
+    nT = random.randint(1, 3)
     for i in range (nT):
         tPos = False
         while tPos == False:
@@ -202,7 +202,7 @@ def plot():
 
     plt.show()
 
-#plot()
+plot()
 
 
 

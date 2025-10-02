@@ -65,10 +65,10 @@ def dfs(atual):
         nx, ny, nz = x+dx, y+dy, z+dz
         if 0 <= nx < N and 0 <= ny < N and 0 <= nz < N:
             if labirinto[nx][ny][nz] != P and (nx, ny, nz) not in visitados:
-                caminho.append(atual)
-                if dfs((nx, ny, nz)):
-                    return True
-                # Backtrack
+                caminho.append(atual) # Adiciona o atual ao caminho
+                if dfs((nx, ny, nz)): # Aplica recursão para verificar nesse vizinho
+                    return True 
+                # Backtrack se ficar sem saída
                 caminho.pop()
 
     return False
