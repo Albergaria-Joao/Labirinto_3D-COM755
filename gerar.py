@@ -12,7 +12,7 @@ S = 200
 N = 10
 
 PERCENTUAL_PAREDES = 60
-NOME_ARQUIVO = "labirinto10_3.npy"
+NOME_ARQUIVO = "TESTE.npy"
 
 
 labirinto = np.zeros((N, N, N), dtype=int)
@@ -143,7 +143,7 @@ while encontrou == False:
 
 salvar = input("Salvar? <S/n>   ")
 if salvar != "n" and salvar != "N":
-    np.save(NOME_ARQUIVO, labirinto)
+    np.save(f"Labirintos/{NOME_ARQUIVO}", labirinto)
 
 
 

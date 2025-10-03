@@ -12,7 +12,7 @@ S = 200
 # É um algoritmo recursivo. No 100, atingiu o limite máximo (deu stack overflow). Mas no 10, teve um tempo de execução bem melhor que todos os outros
 
 # Carregar o labirinto salvo
-labirinto = np.load("labirinto100.npy")
+labirinto = np.load("Labirintos/labirinto100.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)

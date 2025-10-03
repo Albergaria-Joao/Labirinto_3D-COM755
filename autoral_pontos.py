@@ -15,7 +15,7 @@ N_THREADS = 1000
 #AINDA EM TESTE
 
 # Carregar o labirinto salvo
-labirinto = np.load("labirinto100.npy")
+labirinto = np.load("Labirintos/labirinto100.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)

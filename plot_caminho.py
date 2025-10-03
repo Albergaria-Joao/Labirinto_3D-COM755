@@ -50,4 +50,3 @@ def plotar(alg, labirinto, prev, inicio, saida, time, caminho):
     ax.set_title(f"{alg} - {len(caminho)} passos - Tempo: {time:.6f} segundos")
     plt.show()
 
-

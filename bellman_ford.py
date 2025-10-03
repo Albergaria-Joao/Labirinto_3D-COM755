@@ -9,7 +9,7 @@ T = 150
 S = 200
 
 
-labirinto = np.load("labirinto100.npy")
+labirinto = np.load("Labirintos/labirinto100.npy")
 N = labirinto.shape[0]
 
 
