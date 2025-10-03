@@ -9,13 +9,13 @@ P = 100
 T = 150
 S = 200
 
-N_THREADS = 1000
+N_THREADS = 10
 
 # ALGORITMO AUTORAL 3
 #AINDA EM TESTE
 
 # Carregar o labirinto salvo
-labirinto = np.load("Labirintos/labirinto100.npy")
+labirinto = np.load("Labirintos/labirinto.npy")
 N = labirinto.shape[0]
 
 # Direções possíveis em 3D (6 vizinhos)
@@ -48,7 +48,7 @@ inicio = (0,0,0)
 print(f"Início: {inicio}")
 print(f"Saída: {saida}")
 
-caminhos = {}
+caminhos = []
 
 def caminhar():
     start_thread_time = time.time()
@@ -92,7 +92,10 @@ def caminhar():
         #print(caminho_atual)
     
     if encontrou_saida:
-        caminhos[len(caminho_atual)] = caminho_atual
+        pontos = 0
+        for i in range(len(caminho_atual)):
+            pontos += labirinto[caminho_atual[i]]
+        caminhos.append((len(caminho_atual), pontos, caminho_atual))
 
 
 start_time = time.time() # Inicia o timer
@@ -110,11 +113,7 @@ for i in range(len(threads)):
 
 #print(dict(caminhos))
 
-caminhos_ordenados = dict(sorted(caminhos.items()))
-#print(dict(caminhos_ordenados))
-primeira_chave = next(iter(caminhos_ordenados))
-
-melhor_caminho = caminhos_ordenados[primeira_chave]
+len, pontos, melhor_caminho = min(caminhos, key=lambda x: (x[0], -x[1])) # Pega o que tiver menor comprimento e maior soma de pontos
 
 
 end_time = time.time()
@@ -122,4 +121,4 @@ elapsed_time = end_time - start_time
 print("ENCONTROU SAÍDA")
 
     
-plotar("Autoral - Random com Threads", labirinto, [], inicio, saida, elapsed_time, melhor_caminho)
+plotar(f"Autoral - Random com Threads - Pontuação: {pontos}", labirinto, [], inicio, saida, elapsed_time, melhor_caminho)
